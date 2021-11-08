@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import Icon from "./Icon";
 const NavWrapper = styled.nav`
-box-shadow: 0 0 3px rgba(0,0,0,0.25)
+box-shadow: 0 0 3px rgba(0,0,0,0.25);
+background: #fff;
 line-height: 24px;
 > ul {
   display: flex;
