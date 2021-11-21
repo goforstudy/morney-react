@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useRef } from "react"
 import styled from "styled-components"
 const Wrapper = styled.section`
 background: #f5f5f5;
@@ -20,13 +20,15 @@ font-size: 14px;
     }
 }
 `
-
-const NotesSection: React.FC = () => {
-    const [note, setNote] = useState('')
+type Props = {
+    value: string,
+    onChange: (value: string) => void
+}
+const NotesSection: React.FC<Props> = (props) => {
     const inputRef = useRef<HTMLInputElement>(null)
     const onBlur = () => {
         if(inputRef.current) {
-            setNote(inputRef.current.value);
+            props.onChange(inputRef.current.value);
         }
     }
     return (
@@ -34,12 +36,11 @@ const NotesSection: React.FC = () => {
             
             <label>
                 <span>备注</span>
-                {note}
                 <input 
                     ref = {inputRef}
                     placeholder="在这里添加备注" 
                     type="text" 
-                    defaultValue={note}
+                    defaultValue={props.value}
                     onBlur={onBlur}
                 />
             </label>
