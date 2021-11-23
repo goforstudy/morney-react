@@ -12,7 +12,7 @@ const MyLayout = styled(Layout)`
 type Category = '-' | '+'
 function Money() {
     const [selected, setSelected] = useState({
-        tags: [] as string[],
+        tagIds: [] as number[],
         note: '',
         category: '-' as Category,
         amount: 0
@@ -25,7 +25,7 @@ function Money() {
     }
     return (
         <MyLayout>
-            <TagsSection selected={selected.tags} onChange={tags => {onChange({tags})}}/>
+            <TagsSection selected={selected.tagIds} onChange={tagIds => {onChange({tagIds})}}/>
             <NotesSection
                 value={selected.note}
                 onChange={note=>onChange({note})}

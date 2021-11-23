@@ -1,5 +1,5 @@
-import { useState } from "react"
 import styled from "styled-components"
+import {useTags} from "useTags"
 const Wrapper =  styled.section`
 flex-grow: 1;
 display: flex;
@@ -32,23 +32,23 @@ padding: 12px 16px;
 }
 `
 type Props = {
-    selected: string[];
-    onChange: (selected: string[]) => void;
+    selected: number[];
+    onChange: (selected: number[]) => void;
 }
 const TagsSection: React.FC<Props> = (props) =>{
-    const [tags, setTags] = useState<string[]>(['衣', '食', '住', '行'])
-    const selectedTags = props.selected;
+    const {tags, setTags} = useTags();
+    const selectedTagIds = props.selected;
     const addTag = () => {
         const tagName = window.prompt('新标签名称：')
         if(tagName!==null){
-            setTags([...tags, tagName])
+            setTags([...tags, {id: tags.length + 1, name: tagName}])
         }
     }
-    const onToggleTag = (tag: string) => {
-        if(selectedTags.includes(tag)) {
-            props.onChange(selectedTags.filter(t=>t!==tag))
+    const onToggleTag = (tagId: number) => {
+        if(selectedTagIds.includes(tagId)) {
+            props.onChange(selectedTagIds.filter(t=>t!==tagId))
         } else {
-            props.onChange([...selectedTags, tag])
+            props.onChange([...selectedTagIds, tagId])
         }
     }
     return (
@@ -57,7 +57,7 @@ const TagsSection: React.FC<Props> = (props) =>{
             <ol>
                 {
                     tags.map((item, index) => (
-                        <li key={index} onClick={() => {onToggleTag(item)}} className={selectedTags.indexOf(item) >= 0 ? 'selected' : ''}>{item}</li>
+                        <li key={item.id} onClick={() => {onToggleTag(item.id)}} className={selectedTagIds.indexOf(item.id) >= 0 ? 'selected' : ''}>{item.name}</li>
                     ))
                 }
             </ol>

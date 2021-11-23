@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Tags from "views/Tags";
 import Money from "views/Money";
+import Tag from "views/Tag";
 import Statistics from "views/Statistics";
 import NotFound from "views/404";
 import styled from "styled-components";
@@ -17,7 +18,10 @@ export default function App() {
     <AppWrapper>
       <Router>
           <Switch>
-            <Route path="/tags">
+            <Route path="/tags/:tag" exact>
+              <Tag />
+            </Route>
+            <Route path="/tags"  exact>
               <Tags />
             </Route>
             <Route path="/money">
